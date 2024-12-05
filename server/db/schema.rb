@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_04_221720) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_05_185309) do
+  create_table "squads", force: :cascade do |t|
+    t.integer "owner_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_squads_on_owner_id"
+  end
+
+  create_table "squads_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "squad_id", null: false
+    t.index ["squad_id", "user_id"], name: "index_squads_users_on_squad_id_and_user_id"
+    t.index ["user_id", "squad_id"], name: "index_squads_users_on_user_id_and_squad_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -20,4 +35,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_221720) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
   end
+
+  create_table "users_squads", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "squads", "users", column: "owner_id"
 end
