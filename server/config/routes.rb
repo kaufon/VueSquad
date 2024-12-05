@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  delete("squads/remove", to: "squads#remove", as: "remove_from_squad")
+  resources(:squads, only: [ :create, :index, :destroy ]) do
+    post(:add, on: :collection)
+  end
+
   resources(:users)
   post("/auth/login", to: "authentication#login")
   post("/auth/logout", to: "authentication#logout")
