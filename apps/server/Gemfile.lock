@@ -322,7 +322,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
-  jwt
+  jwt (= 2.9.3)
   kamal
   puma (>= 5.0)
   rails (~> 8.0.0)
