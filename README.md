@@ -70,7 +70,7 @@ Vue Squad é um projeto pessoal que permite criar usuários, squads, autenticaç
     ```
 2. Instale as dependencias do backend
     ```bash
-    cd apps/server && bundler install
+    cd apps/server && bundle install
     ```
 2. Instale as dependencias do frontend
     ```bash
