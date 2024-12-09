@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_05_185309) do
-  create_table "squads", force: :cascade do |t|
-    t.integer "owner_id"
+ActiveRecord::Schema[8.0].define(version: 2024_12_09_133655) do
+  create_table "squads", id: :string, force: :cascade do |t|
     t.string "name"
+    t.string "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_squads_on_owner_id"
@@ -26,14 +26,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_185309) do
     t.index ["user_id", "squad_id"], name: "index_squads_users_on_user_id_and_squad_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :string, force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
   create_table "users_squads", force: :cascade do |t|
