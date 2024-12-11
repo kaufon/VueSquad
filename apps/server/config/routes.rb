@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     post(:add, on: :collection)
   end
 
+  resources(:tasks)
   resources(:users)
   post("/auth/login", to: "authentication#login")
   post("/auth/logout", to: "authentication#logout")
