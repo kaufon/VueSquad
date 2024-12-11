@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: %i[ create index ]
+  skip_before_action :authenticate_request, only: %i[create index]
   before_action :set_user, only: %i[show destroy]
-
   def index
     users = User.all
-    @users = users.then(&paginate())
+    @users = users.then(&paginate)
     render(json: @users)
   end
 
