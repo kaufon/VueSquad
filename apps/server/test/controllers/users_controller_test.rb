@@ -1,4 +1,4 @@
-require "test_helper"
+equire "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
