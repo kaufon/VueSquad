@@ -1,5 +1,6 @@
 class SquadsController < ApplicationController
   skip_before_action :authenticate_request, only: [ :index ]
+  before_action :set_squad, only: %i[update]
   def create
     @squad = Squad.new(squad_params.merge(owner_id: current_user.id))
     if @squad.save
@@ -7,6 +8,12 @@ class SquadsController < ApplicationController
     else
       render(json: @squad.erros, status: :unprocessable_entity)
     end
+  end
+
+  def update
+    service = Squads::UpdateSquadService.new(@squad, squad_params, current_user)
+    response = service.execute
+    render(json: response)
   end
 
   def index
@@ -35,8 +42,12 @@ class SquadsController < ApplicationController
   end
 
   private
+  def set_squad
+    @squad = Squad.find_by(id: params[:id])
+  end
+
   def squad_params
-    params.permit([ :name])
+    params.permit([ :name ])
   end
 
   def add_params
