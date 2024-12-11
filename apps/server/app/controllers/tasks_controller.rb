@@ -21,11 +21,9 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params)
-      render(json: @task)
-    else
-      render(json(@task.erros, status: :unprocessable_entity))
-    end
+    service = Tasks::UpdateTaskService.new(@task, task_params, current_user)
+    service.execute
+    render(json: { message: "Task edited sucessfuly" })
   end
 
   def show
