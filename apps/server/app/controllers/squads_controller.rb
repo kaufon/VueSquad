@@ -10,66 +10,33 @@ class SquadsController < ApplicationController
   end
 
   def index
-    @squads = Squad.includes(:users).all
-    render(json: @squads.to_json(include: { users: { only: [ :id, :name, :email ] } }))
+    squads = Squad.includes(:users).all
+    squads = squads.then(&paginate)
+    @squads = squads.to_json(include: { users: { only: [ :id, :name, :email ] } })
+    render(json: @squads)
   end
 
   def add
-    @squad = Squad.find_by_id(add_params[:squad_id])
-
-    if @squad.nil?
-      render(json: { message: "Squad not found" }, status: :unprocessable_entity) and return
-    end
-
-    unless current_user.id == @squad.owner_id
-      render(json: { message: "You are not the owner of this squad" }, status: :unprocessable_entity) and return
-    end
-
-    @user_squad = SquadsUsers.new(add_params)
-
-    if @user_squad.save
-      render(json: @user_squad, status: :created)
-    else
-      render(json: @user_squad.errors, status: :unprocessable_entity)
-    end
+    service = Squads::AddUserToSquadService.new(add_params, current_user)
+    response = service.execute
+    render(json: response)
   end
 
   def remove
-    @squad = Squad.find_by_id(add_params[:squad_id])
-    if @squad.nil?
-      render(json: { message: "Squad not found" }, status: :unprocessable_entity) and return
-    end
-
-    unless current_user.id == @squad.owner_id
-      render(json: { message: "You are not the owner of this squad" }, status: :unprocessable_entity) and return
-    end
-
-    @user = User.find_by_id(add_params[:user_id])
-    if @user.nil?
-      render(json: { message: "User not found" }, status: :unprocessable_entity) and return
-    end
-
-    @squad.users.delete(@user)
-    render(json: { message: "User removed successfully" }, status: :ok)
+    service = Squads::RemoveUserFromSquadService.new(add_params, current_user)
+    service.execute
+    render(json: { message: "User removed successfully" })
   end
 
   def destroy
-    @squad = Squad.find(params[:id])
-    if @squad.nil?
-      render(json: { message: "Squad not found" }, status: :unprocessable_entity) and return
-    end
-
-    if @squad.owner_id != current_user.id
-      render(json: { message: "You are not the owner of this squad" }, status: :unprocessable_entity) and return
-    end
-
-    @squad.destroy
-    render(json: { message: "Squad deleted successfully" }, status: :ok)
+    service = Squads::DeleteSquadService.new(params[:id], current_user)
+    service.execute
+    render(json: { message: "Squad Deleted successfully" })
   end
 
   private
   def squad_params
-    params.permit([ :name, :owner_id ])
+    params.permit([ :name])
   end
 
   def add_params
