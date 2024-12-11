@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   delete("squads/remove", to: "squads#remove", as: "remove_from_squad")
-  resources(:squads, only: [ :create, :index, :destroy ]) do
+  resources(:squads, only: [ :create, :index, :destroy, :update ]) do
     post(:add, on: :collection)
   end
 
