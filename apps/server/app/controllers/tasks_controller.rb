@@ -1,8 +1,13 @@
 class TasksController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :index ]
   before_action :set_task, only: %i[destroy show update]
   def index
-    @tasks = Task.includes(:users).all
+    squad_id = params[:squad_id]
+    if squad_id.present?
+      @tasks = Task.includes(:users).where(squad_id: squad_id)
+    else
+      @tasks = Task.includes(:users).all
+    end
+
     tasks = @tasks.then(&paginate)
     tasks = tasks.to_json(include: { users: { only: [ :id, :name ] } })
     render(json: tasks)
