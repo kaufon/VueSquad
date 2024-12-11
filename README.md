@@ -26,30 +26,30 @@ Vue Squad é um projeto pessoal que permite criar usuários, squads, autenticaç
   - A interface é responsiva e otimizada para dispositivos móveis.
 
 - **Notificações em Tempo Real**:
-  - Notificações para alterações em tarefas ou squads (em progresso).
+  - Notificações para alterações em tarefas ou squads.
 
 - **Filtros e Ordenação de Tarefas**:
   - Filtros por status, data de criação e data de conclusão.
   - Ordenação de tarefas por data ou prioridade.
 
-## Requisitos Funcionais
+### Requisitos Funcionais
 
-1. **Cadastro de Usuário**: O sistema deve permitir que novos usuários se registrem.
-2. **Login de Usuário**: O sistema deve permitir que usuários autenticados façam login utilizando e-mail e senha.
-3. **Criação de Squad**: O sistema deve permitir que usuários criem squads e adicione membros.
-4. **Criação de Tarefas**: O sistema deve permitir a criação de tarefas dentro de um squad.
-5. **Gerenciamento de Tarefas**: O sistema deve permitir a edição, remoção e atribuição de tarefas a membros do squad.
-6. **Visualização de Tarefas**: O sistema deve permitir a visualização de todas as tarefas de um squad.
+- [x] **Cadastro de Usuário**: O sistema deve permitir que novos usuários se registrem.
+- [x] **Login de Usuário**: O sistema deve permitir que usuários autenticados façam login utilizando e-mail e senha.
+- [x] **Gerencimaneto de Squad**: O sistema deve permitir que usuários criem squads e adicione membros.
+- [x] **Gerenciamento de Tarefas**: O sistema deve permitir a edição,adicao, remoção e atribuição de tarefas a membros do squad.
+- [x] **Visualização de Tarefas**: O sistema deve permitir a visualização de todas as tarefas de um squad.
 
-## Requisitos Não Funcionais
+### Requisitos Não Funcionais
 
-1. **Segurança**:
-   - A autenticação deve ser realizada por meio de tokens JWT.
-   - Senhas devem ser criptografadas antes de serem armazenadas.
-2. **Responsividade**:
-   - A interface deve ser responsiva, funcionando bem em diferentes tamanhos de tela, incluindo dispositivos móveis.
-3. **Testes**:
-   - Backend deve estar totalmente testado com rSpec
+- [x] **Segurança**:
+  - [x] A autenticação deve ser realizada por meio de tokens JWT.
+  - [x] Senhas devem ser criptografadas antes de serem armazenadas.
+- [ ] **Responsividade**:
+  - [ ] A interface deve ser responsiva, funcionando bem em diferentes tamanhos de tela, incluindo dispositivos móveis.
+- [ ] **Testes**:
+  - [ ] Backend deve estar totalmente testado com rSpec.
+
 
 ## Tecnologias Utilizadas
 
