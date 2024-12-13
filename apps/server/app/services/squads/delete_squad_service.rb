@@ -14,7 +14,7 @@ module Squads
     def execute
       squad = Squad.find_by_id(@id)
       raise SquadNotFound, "Squad not found" if squad.nil?
-      raise NotOwner, "Inccorect owner" if @current_user_id != squad.owner_id
+      raise NotOwner, "Incorrect Owner" if @current_user_id != squad.owner_id
       squad.destroy
     end
   end

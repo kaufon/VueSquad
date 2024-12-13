@@ -22,13 +22,13 @@ module Squads
 
     def execute
       squad = Squad.find_by_id(@params[:squad_id])
-      raise SquadNotFoundError, "Squad not Found" if squad.nil?
+      raise SquadNotFoundError, "Squad not Found" unless squad
 
       raise NotOwnerError, "Incorrect Owner" unless @current_user_id == squad.owner_id
 
       user = User.find_by_id(@params[:user_id])
-      raise UserNotFound if user.nil?
-      raise UserNotInSquad if squad.users.find_by_id(user).nil?
+      raise UserNotFound, "User not Found" unless user
+      raise UserNotInSquad, "User not in Squad" unless squad.users.include?(user)
       squad.users.delete(user)
     end
   end

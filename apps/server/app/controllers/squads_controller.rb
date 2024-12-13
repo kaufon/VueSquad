@@ -6,11 +6,15 @@ class SquadsController < ApplicationController
     if @squad.save
       render(json: @squad, status: :created, location: @squad)
     else
-      render(json: @squad.erros, status: :unprocessable_entity)
+      render(json: @squad.errors, status: :unprocessable_entity)
     end
   end
 
   def update
+    unless @squad
+      render(json: { message: "squad not found" }, status: :not_found) and return
+    end
+
     service = Squads::UpdateSquadService.new(@squad, squad_params, current_user)
     response = service.execute
     render(json: response)
