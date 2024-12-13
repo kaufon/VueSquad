@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[create index]
-  before_action :set_user, only: %i[show destroy]
+  before_action :set_user, only: %i[show destroy update]
   def index
     users = User.all
     @users = users.then(&paginate)
@@ -21,6 +21,10 @@ class UsersController < ApplicationController
   end
 
   def update
+    unless @user
+      render(json: { message: "user not found" }, status: :not_found) and return
+    end
+
     if @user.update(user_params)
       render(json: @user)
     else
@@ -29,6 +33,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    unless @user
+      render(json: { message: "user not found" }, status: :not_found) and return
+    end
+
     @user.destroy!
   end
 
