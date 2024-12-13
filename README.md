@@ -53,9 +53,9 @@ Vue Squad é um projeto pessoal que permite criar usuários, squads, autenticaç
 
 ## Tecnologias Utilizadas
 
-- **Backend**: Ruby on Rails, JWT para autenticação
-- **Frontend**: Vue.js, Vuex, Vue Router
-- **Banco de Dados**: SQLite (ou outro banco de sua escolha)
+- **Backend**: Ruby on Rails
+- **Frontend**: Vue.js,Vite
+- **Banco de Dados**: SQLite 
 - **Autenticação**: JWT (JSON Web Token)
 
 ## Como Rodar o Projeto
