@@ -115,8 +115,7 @@ RSpec.describe "UsersController", type: :request do
 
     it "should NOT delete user" do
       delete(user_path(123), headers: { Authorization: "Bearer #{token}" })
-      expect(response).to have_http_status(:not_found)
-
+      expect(response).to(have_http_status(:not_found))
     end
   end
 end

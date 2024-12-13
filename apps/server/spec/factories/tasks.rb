@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory(:task) do
-    name { "Task do joao" }
+    name { Faker::Name.name }
     squad
     association(:creator, factory: :user)
     status { 0 }

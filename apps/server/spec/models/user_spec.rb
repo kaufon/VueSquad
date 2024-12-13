@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
 
     it "validates name uniqueness" do
       user = create(:user)
-      user2 = build(:user)
+      user2 = build(:user, name: user.name)
       expect(user2).to_not(be_valid)
     end
 
