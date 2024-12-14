@@ -1,82 +1,85 @@
 # Vue Squad
 
-Vue Squad é um projeto pessoal que permite criar usuários, squads, autenticação e tarefas (tasks). O projeto utiliza Ruby on Rails para o backend e Vue.js para o frontend, oferecendo uma interface moderna e eficiente para o gerenciamento de squads e tarefas.
+Vue Squad is a project that allows users to create users, squads, authentication, and tasks. The project uses Ruby on Rails for the backend and Vue.js for the frontend.
 
-## Funcionalidades
+## Features
 
-### Funcionalidades Principais
+### Main Features
 
-- **Cadastro e Autenticação de Usuários**:
-  - Usuários podem se registrar com nome, e-mail e senha.
-  - Autenticação via token JWT para garantir segurança.
-  - Sistema de login com validação de credenciais.
+- **User Registration and Authentication**:
+  - Users can register with name, email, and password.
+  - Authentication via JWT token for security.
+  - Login system with credentials validation.
 
-- **Criação e Gerenciamento de Squads**:
-  - Usuários podem criar e editar squads.
-  - Cada squad pode ter múltiplos membros, com permissão para adicionar e remover membros.
+- **Squad Creation and Management**:
+  - Users can create and edit squads.
+  - Each squad can have multiple members, with permission to add and remove members.
 
-- **Criação e Gerenciamento de Tarefas (Tasks)**:
-  - Usuários podem criar tarefas dentro dos squads.
-  - Tarefas podem ser atribuídas a membros específicos do squad.
-  - Cada tarefa pode ter um status (ex.: pendente, em progresso, concluída).
-  - Possibilidade de editar e excluir tarefas.
+- **Task Creation and Management**:
+  - Users can create tasks within squads.
+  - Tasks can be assigned to specific squad members.
+  - Each task can have a status (e.g., pending, in progress, completed).
+  - Ability to edit and delete tasks.
 
-- **Interface Intuitiva e Responsiva**:
-  - O frontend é desenvolvido com Vue.js, proporcionando uma interface dinâmica e de fácil navegação.
-  - A interface é responsiva e otimizada para dispositivos móveis.
+- **Intuitive and Responsive Interface**:
+  - The frontend is developed with Vue.js, providing a dynamic and easy-to-navigate interface.
+  - The interface is responsive and optimized for mobile devices.
 
-- **Notificações em Tempo Real**:
-  - Notificações para alterações em tarefas ou squads.
+- **Real-Time Notifications**:
+  - Notifications for changes in tasks or squads.
 
-- **Filtros e Ordenação de Tarefas**:
-  - Filtros por status, data de criação e data de conclusão.
-  - Ordenação de tarefas por data ou prioridade.
+- **Task Filtering and Sorting**:
+  - Filters by status, creation date, and completion date.
+  - Sorting of tasks by date or priority.
 
-### Requisitos Funcionais
+### Functional Requirements
 
-- [x] **Cadastro de Usuário**: O sistema deve permitir que novos usuários se registrem.
-- [x] **Login de Usuário**: O sistema deve permitir que usuários autenticados façam login utilizando e-mail e senha.
-- [x] **Gerencimaneto de Squad**: O sistema deve permitir que usuários criem squads e adicione membros.
-- [x] **Gerenciamento de Tarefas**: O sistema deve permitir a edição,adicao, remoção e atribuição de tarefas a membros do squad.
-- [x] **Visualização de Tarefas**: O sistema deve permitir a visualização de todas as tarefas de um squad.
+- [x] **User Registration**: The system should allow new users to register.
+- [x] **User Login**: The system should allow authenticated users to log in using email and password.
+- [x] **Squad Management**: The system should allow users to create squads and add members.
+- [x] **Task Management**: The system should allow editing, adding, removing, and assigning tasks to squad members.
+- [x] **Task Viewing**: The system should allow viewing all tasks within a squad.
 
-### Requisitos Não Funcionais
+### Non-Functional Requirements
 
-- [x] **Segurança**:
-  - [x] A autenticação deve ser realizada por meio de tokens JWT.
-  - [x] Senhas devem ser criptografadas antes de serem armazenadas.
-- [ ] **Responsividade**:
-  - [ ] A interface deve ser responsiva, funcionando bem em diferentes tamanhos de tela, incluindo dispositivos móveis.
-- [x] **Testes**:
-  - [x] Backend deve estar totalmente testado com rSpec.
+- [x] **Security**:
+  - [x] Authentication should be done using JWT tokens.
+  - [x] Passwords should be encrypted before being stored.
+- [ ] **Responsiveness**:
+  - [ ] The interface should be responsive and work well on different screen sizes, including mobile devices.
+- [x] **Testing**:
+  - [x] Backend should be fully tested with rSpec.
 
-
-## Tecnologias Utilizadas
+## Technologies Used
 
 - **Backend**: Ruby on Rails
-- **Frontend**: Vue.js,Vite
-- **Banco de Dados**: SQLite 
-- **Autenticação**: JWT (JSON Web Token)
+- **Frontend**: Vue.js, Vite
+- **Database**: SQLite
+- **Authentication**: JWT (JSON Web Token)
 
-## Como Rodar o Projeto
-### Pre-requisitos:
+## How to Run the Project
+
+### Prerequisites:
 - Rails 8.0.0
 - Ruby 3.3.6
-- Node
+- Node.js
 
-1. Clone o repositório:
-   ```bash
+1. Clone the repository:
+```bash
    git clone https://github.com/kaufon/VueSquad.git
-    ```
-2. Instale as dependencias do backend
-    ```bash
-    cd apps/server && bundle install
-    ```
-2. Instale as dependencias do frontend
-    ```bash
-    cd apps/web && npm install
-    ```
-3. Rode o projeto dentro da pasta `apps`
-     ```bash
-    npm run dev
-    ```
+ ```
+2. Install backend dependencies
+```bash
+cd apps/server && bundle install
+```
+3. Install front dependencies
+```bash
+cd apps/web && npm install
+```
+2. run the project in the root folder
+```bash
+npm run dev
+```
+<p align="center">
+  Made with ❤️ by Kauan Fonseca 
+</p>
