@@ -9,6 +9,14 @@ module Tasks
     def execute
       ActiveRecord::Base.transaction do
         task = Task.new(@params.except(:users).merge(creator_id: @current_user.id))
+        unless task.save
+          raise StandardError, task.errors.full_messages.join(" , ")
+        end
+
+        unless task.squad
+          raise StandardError, "Squad must exist"
+        end
+
         unless task.squad.users.include?(@current_user) || task.squad.owner_id == @current_user.id
           raise StandardError, "User must be in squad"
         end
