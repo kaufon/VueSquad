@@ -65,9 +65,9 @@ Vue Squad is a project that allows users to create users, squads, authentication
 - Node.js
 
 1. Clone the repository:
-   ```bash
+```bash
    git clone https://github.com/kaufon/VueSquad.git
-   ```
+ ```
 2. Install backend dependencies
 ```bash
 cd apps/server && bundle install
