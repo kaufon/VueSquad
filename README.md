@@ -47,8 +47,8 @@ Vue Squad é um projeto pessoal que permite criar usuários, squads, autenticaç
   - [x] Senhas devem ser criptografadas antes de serem armazenadas.
 - [ ] **Responsividade**:
   - [ ] A interface deve ser responsiva, funcionando bem em diferentes tamanhos de tela, incluindo dispositivos móveis.
-- [ ] **Testes**:
-  - [ ] Backend deve estar totalmente testado com rSpec.
+- [x] **Testes**:
+  - [x] Backend deve estar totalmente testado com rSpec.
 
 
 ## Tecnologias Utilizadas
