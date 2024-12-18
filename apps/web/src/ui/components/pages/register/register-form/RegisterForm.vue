@@ -1,4 +1,3 @@
-
 <template>
   <div class="flex items-center justify-center w-full h-screen">
     <Card class="w-[350px]">
@@ -46,7 +45,7 @@
           </FormField>
         </CardContent>
         <CardFooter>
-          <Button type="submit" variant="default" class="flex-1">Submit</Button>
+          <Button type="submit" :loading="isSubmitting" variant="default" class="flex-1">Submit</Button>
         </CardFooter>
         <p class="text-center text-sm pb-4">Already have an account? <strong>
             <RouterLink to="/login">Sign in</RouterLink>
@@ -68,9 +67,10 @@ import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import FormMessage from '@/components/ui/form/FormMessage.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { plainAxiosInstance } from '@/api/axios';
+import { useApi } from '@/ui/hooks';
 import { useToast } from '@/components/ui/toast';
 const { toast } = useToast()
+const { authService } = useApi()
 const formSchema = toTypedSchema(z.object({
   email: z.string().email().min(1),
   name: z.string().min(1),
@@ -80,30 +80,18 @@ const formSchema = toTypedSchema(z.object({
   message: "Passwords are not the same",
   path: ["password_confirmation"]
 }))
-const { handleSubmit } = useForm({
+const { handleSubmit, isSubmitting } = useForm({
   validationSchema: formSchema
 })
-const onSubmit = handleSubmit((values) => {
-  plainAxiosInstance.post("/users", values)
-    .then(() => {
-      window.location.href = "/login"
-    })
-    .catch(function (error) {
-      const errors = error.response.data;
-
-
-      Object.keys(errors).forEach((key) => {
-        const errorMessages = Array.isArray(errors[key]) ? errors[key] : [errors[key]];
-
-
-        errorMessages.forEach((message) => {
-          toast({
-            variant: "destructive",
-            title: key.toUpperCase(),
-            description: message
-          });
-        });
-      });
-    });
+const onSubmit = handleSubmit(async (values) => {
+  const response = await authService.register({ name: values.name, email: values.email, password: values.password, password_confirmation: values.password_confirmation })
+  console.log(response)
+  if (response.isFailure) {
+    toast({ variant: "destructive", title: "Error", description: response.errorMessage })
+  }
+  if (response.isSuccess) {
+    toast({ description: "Registered with sucess!" })
+    window.location.href = "/login"
+  }
 });
 </script>
