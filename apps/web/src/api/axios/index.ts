@@ -1,4 +1,1 @@
-export {
-	securedAxiosInstance,
-	plainAxiosInstance,
-} from "./axios-api-client.ts";
+export { AxiosApiClient } from "./axios-api-client.ts";

@@ -1,41 +1,70 @@
-import axios from "axios";
-const API_URL = "http://localhost:3333";
-const securedAxiosInstance = axios.create({
-	baseURL: API_URL,
-	withCredentials: true,
-	headers: {
-		"Content-Type": "application/json",
-	},
-});
-const plainAxiosInstance = axios.create({
-	baseURL: API_URL,
-	withCredentials: true,
-	headers: {
-		"Content-Type": "application/json",
-	},
-});
-securedAxiosInstance.interceptors.request.use((config) => {
-	const method = config.method?.toUpperCase();
-	if (method !== "OPTIONS" && method !== "GET") {
-		const token = localStorage.getItem("jwt");
-		if (token) {
-			config.headers.Authorization = `Bearer ${token}`;
-		}
-	}
-	return config;
-});
-securedAxiosInstance.interceptors.response.use(
-	(response) => response,
-	(error) => {
-		if (error.response && error.response.status === 401) {
-			localStorage.removeItem("jwt");
+import Axios, { type AxiosInstance } from "axios";
+import { ApiResponse, type IApiClient } from "@/@core";
+import { AxiosError } from "./axios-error";
 
-			window.location.href = "/login";
+export const AxiosApiClient = (baseUrl: string): IApiClient => {
+  const axios: AxiosInstance = Axios.create({
+    baseURL: baseUrl,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-			return Promise.reject(error);
-		}
+  return {
+    async get<Response>(endpoint: string, params?: Record<string, any>) {
+      try {
+        const response = await axios.get(endpoint, { params });
+        return new ApiResponse<Response>({
+          body: response.data,
+          statusCode: response.status,
+        });
+      } catch (error) {
+        return AxiosError<Response>(error);
+      }
+    },
 
-		return Promise.reject(error);
-	},
-);
-export { securedAxiosInstance, plainAxiosInstance };
+    async post<Response>(endpoint: string, body: unknown) {
+      try {
+        const response = await axios.post(endpoint, body);
+        return new ApiResponse<Response>({
+          body: response.data,
+          statusCode: response.status,
+        });
+      } catch (error) {
+        return AxiosError<Response>(error);
+      }
+    },
+
+    async put<Response>(endpoint: string, body: unknown) {
+      try {
+        const response = await axios.put(endpoint, body);
+        return new ApiResponse<Response>({
+          body: response.data,
+          statusCode: response.status,
+        });
+      } catch (error) {
+        return AxiosError<Response>(error);
+      }
+    },
+
+    async delete<Response>(endpoint: string) {
+      try {
+        const response = await axios.delete(endpoint);
+        return new ApiResponse<Response>({
+          body: response.data,
+          statusCode: response.status,
+        });
+      } catch (error) {
+        return AxiosError<Response>(error);
+      }
+    },
+
+    setHeader(key: string, value: string) {
+      axios.defaults.headers[key] = value;
+    },
+    setAuthToken(token: string) {
+      this.setHeader("Authorization", `Bearer ${token}`);
+    },
+  };
+};
+
