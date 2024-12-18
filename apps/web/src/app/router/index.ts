@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
 	} else if (token) {
 		next();
 	} else {
-		next("Login");
+		next("login");
 	}
 });
 export default router;
