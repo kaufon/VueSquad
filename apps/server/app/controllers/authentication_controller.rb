@@ -6,7 +6,7 @@ class AuthenticationController < ApplicationController
       token = jwt_encode(id: @user.id)
       render(json: { jwt: token }, status: :ok)
     else
-      render(json: { error: "Invalid credentials" }, status: :unauthorized)
+      render(json: { errorMessage: "Invalid credentials" }, status: :unauthorized)
     end
   end
 
