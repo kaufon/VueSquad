@@ -21,6 +21,11 @@ const router = createRouter({
 			name: "Register",
 			component: RegisterPage,
 		},
+		{
+			path: "/squads/:id",
+			name: "Squad",
+			component: RegisterPage,
+		},
 	],
 });
 router.beforeEach((to, from, next) => {
