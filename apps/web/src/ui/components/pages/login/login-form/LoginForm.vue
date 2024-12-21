@@ -43,11 +43,11 @@ import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
 import { FormField, FormMessage, FormControl, FormLabel, FormItem } from '@/components/ui/form';
-import { useApi } from '@/ui/hooks';
-import { useToast } from '@/components/ui/toast';
+import { useApi, useNotice } from '@/ui/hooks';
 import { RouterLink } from 'vue-router';
+import router from '@/app/router';
+const { showError } = useNotice()
 const { authService } = useApi()
-const { toast } = useToast()
 const formSchema = toTypedSchema(z.object({
   email: z.string().email().min(1),
   password: z.string().min(1)
@@ -59,11 +59,11 @@ const onSubmit = handleSubmit(async (values) => {
   const response = await authService.login(values.email, values.password)
   if (response.isSuccess) {
     localStorage.setItem("jwt", response.body.jwt)
-    window.location.href = "/"
+    router.push("/")
   }
   if (response.isFailure) {
     localStorage.removeItem("jwt")
-    toast({ variant: "destructive", description: response.errorMessage })
+    showError(response.errorMessage)
   }
 })
 </script>

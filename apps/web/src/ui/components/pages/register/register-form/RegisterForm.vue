@@ -56,20 +56,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Card, CardContent, CardFooter, CardTitle, CardHeader } from '@/components/ui/card';
-import Input from '@/components/ui/input/Input.vue';
+import router from '@/app/router';
+import Button from '@/components/ui/button/Button.vue';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { FormField } from '@/components/ui/form';
 import FormControl from '@/components/ui/form/FormControl.vue';
 import FormItem from '@/components/ui/form/FormItem.vue';
 import FormLabel from '@/components/ui/form/FormLabel.vue';
+import FormMessage from '@/components/ui/form/FormMessage.vue';
+import Input from '@/components/ui/input/Input.vue';
+import { useApi, useNotice } from '@/ui/hooks';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
-import FormMessage from '@/components/ui/form/FormMessage.vue';
-import Button from '@/components/ui/button/Button.vue';
-import { useApi } from '@/ui/hooks';
-import { useToast } from '@/components/ui/toast';
-const { toast } = useToast()
+const { showError, showSuccess } = useNotice()
 const { authService } = useApi()
 const formSchema = toTypedSchema(z.object({
   email: z.string().email().min(1),
@@ -85,13 +85,12 @@ const { handleSubmit, isSubmitting } = useForm({
 })
 const onSubmit = handleSubmit(async (values) => {
   const response = await authService.register({ name: values.name, email: values.email, password: values.password, password_confirmation: values.password_confirmation })
-  console.log(response)
-  if (response.isFailure) {
-    toast({ variant: "destructive", title: "Error", description: response.errorMessage })
+ if (response.isFailure) {
+    showError(response.errorMessage)
   }
   if (response.isSuccess) {
-    toast({ description: "Registered with sucess!" })
-    window.location.href = "/login"
+    showSuccess("Registered with sucess")
+    router.push("/login")
   }
 });
 </script>

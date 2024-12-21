@@ -1,6 +1,7 @@
 import { AxiosApiClient } from "@/api/axios";
 import { AuthService } from "@/api/services/auth-service";
 import { DashBoardService } from "@/api/services/dashboard-service";
+import { SquadService } from "@/api/services/squad-service";
 
 const axiosApiClient = AxiosApiClient("http://localhost:3333");
 export function useApi() {
@@ -10,5 +11,6 @@ export function useApi() {
 	return {
 		authService: AuthService(axiosApiClient),
 		dashboardService: DashBoardService(axiosApiClient),
+		squadService: SquadService(axiosApiClient),
 	};
 }
