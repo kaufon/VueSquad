@@ -13,6 +13,9 @@ module Pagination
   end
 
   def paginate
-    ->(it) { it.limit(items_per_page).offset(paginate_offset) }
+    ->(it) {
+      return [] if it.nil? || it.empty?
+      it.limit(items_per_page).offset(paginate_offset)
+    }
   end
 end

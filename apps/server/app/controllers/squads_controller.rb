@@ -1,5 +1,4 @@
 class SquadsController < ApplicationController
-  skip_before_action :authenticate_request, only: [ :index ]
   before_action :set_squad, only: %i[update]
   def create
     @squad = Squad.new(squad_params.merge(owner_id: current_user.id))
@@ -21,7 +20,9 @@ class SquadsController < ApplicationController
   end
 
   def index
-    squads = Squad.includes(:users).all
+    squads_user_is_owner = Squad.includes(:users).where(owner_id: current_user.id)
+    squads_user_is_participant = Squad.includes(:users).where(users: { id: current_user.id })
+    squads = squads_user_is_owner.or(squads_user_is_participant)
     squads = squads.then(&paginate)
     @squads = squads.to_json(include: { users: { only: [ :id, :name, :email ] } })
     render(json: @squads)
