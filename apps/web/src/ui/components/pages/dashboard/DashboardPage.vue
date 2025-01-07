@@ -43,9 +43,5 @@ const fetchSquads = async () => {
   }
 }
 fetchSquads()
-const response = await dashboardService.getSquads()
-if (response.isFailure) {
-  showError(response.errorMessage)
-}
 
 </script>

@@ -1,5 +1,17 @@
 class SquadsController < ApplicationController
   before_action :set_squad, only: %i[update]
+  def show
+    squad_id = params[:id]
+    squad = Squad.find_by_id(squad_id)
+    if squad.nil?
+      render(json: { message: "Squad not found" }, status: :unprocessable_entity) and return
+    end
+
+    squad = Squad.includes(:users).where(id: squad_id)
+    squad = squad.to_json(include: { users: { only: [ :name, :email ] } })
+    render(json: squad)
+  end
+
   def create
     @squad = Squad.new(squad_params.merge(owner_id: current_user.id))
     if @squad.save
